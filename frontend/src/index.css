@@ -1,0 +1,509 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+}
+
+.home {
+  min-height: 100vh;
+  background: #f5f5f5;
+}
+
+.navbar {
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 50px;
+  background: white;
+  position: relative;
+  z-index: 1000;
+}
+
+.logo {
+  border: none;
+  background: none;
+
+  font-size: 24px;
+  font-weight: bold;
+
+  cursor: pointer;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+nav a {
+  text-decoration: none;
+  color: #222;
+}
+
+.menu-button {
+  border: none;
+  background: none;
+  font-size: 25px;
+  cursor: pointer;
+}
+
+.main-content {
+  padding: 30px 50px;
+}
+
+.map {
+  width: 100%;
+  height: 500px;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.booking-card {
+  width: 600px;
+  max-width: 90%;
+  margin: 25px auto 0;
+  position: relative;
+  background: white;
+  padding: 25px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+}
+
+.booking-card input {
+  width: 100%;
+  padding: 16px;
+  margin-bottom: 12px;
+
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  font-size: 15px;
+}
+
+.ride-types {
+  display: flex;
+  gap: 10px;
+  margin: 10px 0;
+}
+
+.ride-types button {
+  flex: 1;
+  padding: 14px;
+
+  border: 1px solid #ddd;
+  background: white;
+  border-radius: 10px;
+
+  cursor: pointer;
+}
+
+.find-ride {
+  width: 100%;
+  padding: 16px;
+
+  border: none;
+  border-radius: 10px;
+
+  background: #111;
+  color: white;
+
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.cargo-button {
+  width: 100%;
+  margin-top: 12px;
+  padding: 14px;
+
+  border: none;
+  background: transparent;
+
+  cursor: pointer;
+  font-size: 15px;
+}
+
+.menu {
+  position: absolute;
+  top: 70px;
+  right: 50px;
+  width: 200px;
+  padding: 15px;
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  z-index: 1000;
+}
+
+.menu a {
+  padding: 12px;
+  text-decoration: none;
+  color: #222;
+  border-radius: 8px;
+}
+
+.menu a:hover {
+  background: #f3f3f3;
+}
+
+.login-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.login-modal {
+  width: 400px;
+  max-width: 90%;
+  position: relative;
+  background: white;
+  padding: 35px;
+
+  border-radius: 20px;
+
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+}
+
+.login-modal h2 {
+  font-size: 28px;
+  margin-bottom: 8px;
+}
+
+.login-modal p {
+  color: #777;
+  margin-bottom: 25px;
+}
+
+.login-modal input {
+  width: 100%;
+  padding: 14px;
+
+  margin-bottom: 12px;
+
+  border: 1px solid #ddd;
+  border-radius: 10px;
+
+  font-size: 15px;
+}
+
+.login-submit {
+  width: 100%;
+  padding: 14px;
+
+  border: none;
+  border-radius: 10px;
+
+  background: #111;
+  color: white;
+
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.register-text {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.register-text span {
+  color: #111;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.login-link {
+  border: none;
+  background: none;
+
+  font-size: 16px;
+  color: #222;
+
+  cursor: pointer;
+}
+
+.close-button {
+  position: absolute;
+  top: 15px;
+  right: 18px;
+
+  border: none;
+  background: none;
+
+  font-size: 28px;
+  color: #777;
+
+  cursor: pointer;
+}
+
+.user-name {
+  font-size: 16px;
+  font-weight: 600;
+  color: #222;
+}
+
+.logout-button {
+  padding: 12px;
+  border: none;
+  background: transparent;
+  color: #d32f2f;
+  text-align: left;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+.logout-button:hover {
+  background: #f3f3f3;
+}
+
+.ride-types button {
+  transition: 0.2s;
+}
+
+.ride-types button:hover {
+  background: #f3f3f3;
+}
+
+.ride-types .selected-ride {
+  background: #111;
+  color: white;
+  border-color: #111;
+}
+
+.ride-status-card {
+  width: 600px;
+  max-width: 90%;
+  margin: 25px auto;
+  background: white;
+  padding: 25px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+}
+
+.ride-status-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 25px;
+}
+
+.ride-status-header h2 {
+  margin-bottom: 6px;
+}
+
+.ride-status-header p {
+  color: #777;
+}
+
+.ride-status {
+  background: #fff3cd;
+  color: #856404;
+  padding: 7px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: bold;
+  text-transform: capitalize;
+}
+
+.route {
+  margin-bottom: 25px;
+}
+
+.route-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.route-icon {
+  font-size: 22px;
+}
+
+.route-item small {
+  display: block;
+  color: #888;
+  margin-bottom: 3px;
+}
+
+.route-item strong {
+  display: block;
+  font-size: 16px;
+}
+
+.route-line {
+  width: 2px;
+  height: 25px;
+  background: #ddd;
+  margin: 5px 0 5px 10px;
+}
+
+.ride-info {
+  display: flex;
+  gap: 50px;
+  border-top: 1px solid #eee;
+  padding-top: 20px;
+}
+
+.ride-info small {
+  display: block;
+  color: #888;
+  margin-bottom: 5px;
+}
+
+.ride-info strong {
+  font-size: 16px;
+}
+
+.searching-driver {
+  margin-top: 20px;
+  padding: 14px;
+  background: #f5f5f5;
+  border-radius: 10px;
+  text-align: center;
+  font-size: 15px;
+}
+
+.driver-found {
+  margin-top: 20px;
+  padding: 14px;
+  background: #e8f5e9;
+  color: #2e7d32;
+  border-radius: 10px;
+  font-weight: bold;
+}
+
+.driver-found span {
+  display: block;
+  margin-top: 5px;
+  color: #555;
+  font-weight: normal;
+}
+
+.ride-action-button {
+  width: 100%;
+  margin-top: 15px;
+  padding: 14px;
+  border: none;
+  border-radius: 10px;
+  background: #111;
+  color: white;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.ride-action-button:hover {
+  opacity: 0.9;
+}
+
+.ride-started {
+  margin-top: 20px;
+  padding: 15px;
+  background: #e3f2fd;
+  border-radius: 10px;
+  font-weight: bold;
+}
+
+.ride-started span {
+  display: block;
+  margin-top: 5px;
+  color: #555;
+  font-weight: normal;
+}
+
+.ride-completed {
+  margin-top: 20px;
+  padding: 15px;
+  background: #e8f5e9;
+  border-radius: 10px;
+  color: #2e7d32;
+  font-weight: bold;
+}
+
+.ride-completed span {
+  display: block;
+  margin-top: 5px;
+  color: #555;
+  font-weight: normal;
+}
+
+.driver-dashboard {
+  min-height: 100vh;
+  padding: 40px;
+  background: #f5f5f5;
+}
+
+.driver-dashboard h1 {
+  margin-bottom: 10px;
+}
+
+.driver-dashboard > p {
+  color: #777;
+  margin-bottom: 25px;
+}
+
+.driver-ride-card {
+  max-width: 600px;
+  background: white;
+  padding: 25px;
+  margin-bottom: 20px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+.driver-ride-card h2 {
+  margin-bottom: 15px;
+}
+
+.driver-ride-card p {
+  margin: 8px 0;
+}
+
+.driver-ride-card button {
+  width: 100%;
+  margin-top: 15px;
+  padding: 14px;
+  border: none;
+  border-radius: 10px;
+  background: #111;
+  color: white;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.driver-ride-card button:hover {
+  opacity: 0.9;
+}
+
+.no-rides {
+  max-width: 600px;
+  padding: 30px;
+  background: white;
+  border-radius: 20px;
+  text-align: center;
+  color: #777;
+}
+
+.completed-price {
+  margin-top: 15px;
+  padding: 12px;
+  background: #e8f5e9;
+  border-radius: 10px;
+  color: #2e7d32;
+  font-weight: bold;
+}
+
+.map-container {
+  width: 100%;
+  height: 100%;
+}

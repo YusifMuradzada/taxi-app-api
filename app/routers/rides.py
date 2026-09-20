@@ -119,6 +119,7 @@ def accept_ride(
 
     ride.driver_id = driver.id
     ride.status = "accepted"
+    driver.is_available = False
 
     db.commit()
     db.refresh(ride)

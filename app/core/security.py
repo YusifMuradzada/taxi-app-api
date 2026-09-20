@@ -1,32 +1,27 @@
 from datetime import datetime, timedelta, timezone
 
 from fastapi import Depends, HTTPException, status
-from fastapi.security import OAuth2PasswordBearer
+from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from jose import JWTError, jwt
-from passlib.context import CryptContext
+from pwdlib import PasswordHash
 
 from app.core.config import settings
 
 
-pwd_context = CryptContext(
-    schemes=["bcrypt"],
-    deprecated="auto",
-)
+password_hash = PasswordHash.recommended()
 
-oauth2_scheme = OAuth2PasswordBearer(
-    tokenUrl="/auth/login"
-)
+security = HTTPBearer()
 
 
 def hash_password(password: str) -> str:
-    return pwd_context.hash(password)
+    return password_hash.hash(password)
 
 
 def verify_password(
     plain_password: str,
     hashed_password: str,
 ) -> bool:
-    return pwd_context.verify(
+    return password_hash.verify(
         plain_password,
         hashed_password,
     )
@@ -39,7 +34,9 @@ def create_access_token(data: dict) -> str:
         minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES
     )
 
-    to_encode.update({"exp": expire})
+    to_encode.update({
+        "exp": expire
+    })
 
     return jwt.encode(
         to_encode,
@@ -49,13 +46,16 @@ def create_access_token(data: dict) -> str:
 
 
 def get_current_user_id(
-    token: str = Depends(oauth2_scheme),
+    credentials: HTTPAuthorizationCredentials = Depends(security),
 ) -> int:
+
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
         detail="Could not validate credentials",
         headers={"WWW-Authenticate": "Bearer"},
     )
+
+    token = credentials.credentials
 
     try:
         payload = jwt.decode(
@@ -73,15 +73,20 @@ def get_current_user_id(
 
     except (JWTError, ValueError):
         raise credentials_exception
-    
+
+
 def require_role(required_role: str):
+
     def role_checker(
-        token: str = Depends(oauth2_scheme),
+        credentials: HTTPAuthorizationCredentials = Depends(security),
     ):
+
         credentials_exception = HTTPException(
             status_code=401,
             detail="Could not validate credentials",
         )
+
+        token = credentials.credentials
 
         try:
             payload = jwt.decode(
@@ -90,7 +95,11 @@ def require_role(required_role: str):
                 algorithms=[settings.ALGORITHM],
             )
 
+            user_id = payload.get("sub")
             role = payload.get("role")
+
+            if user_id is None:
+                raise credentials_exception
 
             if role != required_role:
                 raise HTTPException(
@@ -98,9 +107,9 @@ def require_role(required_role: str):
                     detail="You do not have permission",
                 )
 
-            return payload
+            return int(user_id)
 
-        except JWTError:
+        except (JWTError, ValueError):
             raise credentials_exception
 
     return role_checker
